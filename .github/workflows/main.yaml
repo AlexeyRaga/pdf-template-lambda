@@ -1,0 +1,37 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: quay.io/haskell_works/ghc-8.10.1:ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build
+        run: |
+          mkdir -p .output/bin
+
+          cabal update
+          cabal cabal install --installdir .output/bin --install-method=copy
+          strip .output/bin/bootstrap"
+          mkdir -p .output/cabal-store
+
+
+
+      - name: Pack
+        run: |
+          zip -r -j ./deploy/assets/pdf-template-lambda.zip .output/bin/bootstrap
+
+

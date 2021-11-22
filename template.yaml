@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Alexey Test Lambda.
+Resources:
+  HelloWorldApp:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: NOT_USED
+      Runtime: provided
+      # CodeUri is a relative path from the directory that this CloudFormation
+      # file is defined.
+      CodeUri: dist-newstyle/build/x86_64-linux/ghc-8.10.1/pdf-template-lambda-0.1.0.0/x/bootstrap/build/bootstrap/bootstrap
+      Description: Alexey Test Lambda.
+      MemorySize: 128
+      Timeout: 3

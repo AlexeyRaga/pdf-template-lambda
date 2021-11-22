@@ -1,0 +1,75 @@
+cabal-version:      2.4
+name:               pdf-template-lambda
+version:            0.1.0.0
+
+-- A short (one-line) description of the package.
+-- synopsis:
+
+-- A longer description of the package.
+-- description:
+
+-- A URL where users can report bugs.
+-- bug-reports:
+
+-- The license under which the package is released.
+-- license:
+author:             Alexey Raga
+
+-- An email address to which users can send suggestions, bug reports, and patches.
+-- maintainer:
+
+-- A copyright notice.
+-- copyright:
+-- category:
+-- extra-source-files: CHANGELOG.md
+
+common config
+  default-language: Haskell2010
+  ghc-options:      -Wall
+                    -Wcompat
+                    -Wincomplete-record-updates
+                    -Wincomplete-uni-patterns
+                    -Wredundant-constraints
+  build-depends:    base >= 4.12 && < 4.15
+                  , aeson
+                  , text
+                  , bytestring
+                  , mtl
+                  , transformers
+                  , containers
+
+library
+  import:             config
+  hs-source-dirs:     src
+
+  build-depends:      hal ^>= 0.4.8
+                    , filepath
+                    , directory
+                    , zip-archive
+                    , stache
+
+  exposed-modules:  PdfTemplate.Worker
+
+
+executable bootstrap
+  import:           config
+  hs-source-dirs:   app
+  main-is:          Main.hs
+
+  build-depends:    pdf-template-lambda
+                  , hal ^>= 0.4.8
+                  -- , zip
+                  , stache
+
+test-suite test
+  import:             config
+  hs-source-dirs:     test
+  main-is:            Spec.hs
+  type:               exitcode-stdio-1.0
+  build-tool-depends: hspec-discover:hspec-discover
+  build-depends:      zip-archive
+                    , stache
+                    , hedgehog
+                    , hw-hspec-hedgehog
+                    , hspec
+  other-modules:
