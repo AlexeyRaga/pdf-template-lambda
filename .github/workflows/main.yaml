@@ -16,9 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
       - name: Build
         run: |
           mkdir -p .output/bin
@@ -27,8 +24,6 @@ jobs:
           cabal cabal install --installdir .output/bin --install-method=copy
           strip .output/bin/bootstrap"
           mkdir -p .output/cabal-store
-
-
 
       - name: Pack
         run: |
